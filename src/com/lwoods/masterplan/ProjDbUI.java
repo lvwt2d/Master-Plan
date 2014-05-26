@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 
 public class ProjDbUI {
-
+//initializing variables
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_NAME = "project_name";
 	public static final String KEY_CHECKPOINT = "project_changes";
