@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@+id/thProjects"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true" >
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:id="@+id/tCurrent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/tCurrentInner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Your Project To View:" />
+
+                            <Spinner
+                                android:id="@+id/spProjectChoise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" >
+                            </Spinner>
+
+                            <Button
+                                android:id="@+id/bSQLopenView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="View" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="This Is How It Works:\n\nYou Specify Info Of A New Project You Are Working On In The New Projects Tab.\n\nYou Can Keep Yourself Motivated By Entering The Small Improvements That Lead To The Finish Of The Project In The Update Projects Tab\n\nThe Current Projects Tab Allows You To View A Project's Information To Keep You Informed On Your Progress. Knowing Your Progress Speed Is Important For Optimal Time Management And Motivational Purposes. It Feels Good To Get Things Done!\n\nMore Updates Coming...Thank You For The Support!" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Project Name:" />
+
+                        <Spinner
+                            android:id="@+id/spUpdateChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" >
+                        </Spinner>
+
+                        <ViewFlipper
+                            android:id="@+id/vfUpCheck"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Did You Make Any New Progress?" />
+
+                                <Button
+                                    android:id="@+id/bUpCheck"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@drawable/custom"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="What Progress Did You Make?" />
+
+                                <EditText
+                                    android:id="@+id/etSQLChange"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10" />
+                            </LinearLayout>
+                        </ViewFlipper>
+
+                        <ViewFlipper
+                            android:id="@+id/vfDateChange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Change The Due Date?" />
+
+                                <Button
+                                    android:id="@+id/bDateflip"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@drawable/custom"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="The Due Date Has Changed To:" />
+
+                                <EditText
+                                    android:id="@+id/etDChange"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10" />
+                            </LinearLayout>
+                        </ViewFlipper>
+
+                        <ViewFlipper
+                            android:id="@+id/vfGoals"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Edit Goal Completion?" />
+
+                                <Button
+                                    android:id="@+id/bGoalflip"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@drawable/custom"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layGoals"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <EditText
+                                    android:id="@+id/etAddGoal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ems="10" />
+
+                                <Button
+                                    android:id="@+id/bAddGoal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Add Goal(s)" />
+                            </LinearLayout>
+                        </ViewFlipper>
+
+                        <ViewFlipper
+                            android:id="@+id/vfDepend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Group Project?" />
+
+                                <Button
+                                    android:id="@+id/bDependflip"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:background="@drawable/custom"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="How Many People In The Group?" />
+
+                                <Spinner
+                                    android:id="@+id/spGroupChange"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" >
+                                </Spinner>
+                            </LinearLayout>
+                        </ViewFlipper>
+
+                        <Button
+                            android:id="@+id/bUpdateDb"
+                            android:layout_width="122dp"
+                            android:layout_height="wrap_content"
+                            android:text="Save My CheckPoint!" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/tab3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Project Name:" />
+
+                            <EditText
+                                android:id="@+id/etNewProject"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10" >
+                            </EditText>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Already Reached A Checkpoint? Enter It Here To Show You Mean Business:" />
+
+                            <EditText
+                                android:id="@+id/etNewCheck"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Enter Project Due Date/Your Self Set Completion Goal:" />
+
+                            <EditText
+                                android:id="@+id/etNewDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ems="10" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Break Your Project Down Into A Few Basic Goals/Steps. Type a dash (-) between them:" />
+
+                            <EditText
+                                android:id="@+id/etGoals"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10" />
+
+                            <ViewFlipper
+                                android:id="@+id/vfGroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Are You In A Group?(If Yes..Click Plus)" />
+
+                                    <Button
+                                        android:id="@+id/bGroup"
+                                        android:layout_width="32dp"
+                                        android:layout_height="32dp"
+                                        android:background="@drawable/custom"
+                                        android:gravity="left" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="How Many People Are In The Group?" />
+
+                                    <EditText
+                                        android:id="@+id/etDepends"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:ems="10" />
+                                </LinearLayout>
+                            </ViewFlipper>
+
+                            <Button
+                                android:id="@+id/bSubmitNew"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Add My New Project!" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </ScrollView>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>
