@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item 
+        android:title="About Me"
+        android:id="@+id/aboutus"
+        android:numericShortcut="1"
+        android:alphabeticShortcut="a"/>
+    <item 
+        android:title="Preferences"
+        android:id="@+id/pref"
+        android:numericShortcut="2"
+        android:alphabeticShortcut="p"/>
+    <item 
+        android:title="Exit"
+        android:id="@+id/exit"
+        android:numericShortcut="3"
+        android:alphabeticShortcut="q"/>
+
+</menu>

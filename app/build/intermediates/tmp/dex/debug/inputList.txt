@@ -1,0 +1,2 @@
+/Users/lamarwoods/Android/Master-Plan/app/build/intermediates/classes/debug
+/Users/lamarwoods/Android/Master-Plan/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-350c1dec5c11bf2552b997beaae2ebdca86bbd3d.jar
