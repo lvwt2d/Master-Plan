@@ -30,42 +30,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <LinearLayout
-                        android:id="@+id/tCurrent"
+
+                    <ListView
+                        android:id="@+id/projectList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical" >
+                        android:layout_gravity="center_horizontal" />
 
-                        <LinearLayout
-                            android:id="@+id/tCurrentInner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Choose Your Project To View:" />
-
-                            <Spinner
-                                android:id="@+id/spProjectChoise"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" >
-                            </Spinner>
-
-                            <Button
-                                android:id="@+id/bSQLopenView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="View" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="This Is How It Works:\n\nYou Specify Info Of A New Project You Are Working On In The New Projects Tab.\n\nYou Can Keep Yourself Motivated By Entering The Small Improvements That Lead To The Finish Of The Project In The Update Projects Tab\n\nThe Current Projects Tab Allows You To View A Project's Information To Keep You Informed On Your Progress. Knowing Your Progress Speed Is Important For Optimal Time Management And Motivational Purposes. It Feels Good To Get Things Done!\n\nMore Updates Coming...Thank You For The Support!" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/tab2"

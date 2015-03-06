@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.TextView;
 
 
-public class ProjDbUI {
+public class SQLiteDbInterfacer {
 //initializing variab
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_NAME = "project_name";
@@ -64,16 +64,16 @@ public class ProjDbUI {
 		}
 	}
 	
-	public ProjDbUI(Context c){
+	public SQLiteDbInterfacer(Context c){
 		myContext = c;
 	}
 	
-	public ProjDbUI(Context c, int select){
+	public SQLiteDbInterfacer(Context c, int select){
 		myContext = c;
 		spinSel = select;
 	}
 	
-	public ProjDbUI open() throws SQLException{
+	public SQLiteDbInterfacer open() throws SQLException{
 		myHelper = new DbHelper(myContext);
 		myDatabase = myHelper.getWritableDatabase();
 		return this;
@@ -139,7 +139,7 @@ public class ProjDbUI {
 		return result;
 	}
 	
-	public String[] getProjects() {
+	public String[] getProjectNames() {
 		String[] columns = new String[]{KEY_ROWID, KEY_NAME, KEY_CHECKPOINT, KEY_DUEDATE, KEY_GOALS, KEY_DEPENDS, KEY_DATEIN};
 		ArrayList<String> projNames = new ArrayList<String>();
 		Cursor c = myDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null);

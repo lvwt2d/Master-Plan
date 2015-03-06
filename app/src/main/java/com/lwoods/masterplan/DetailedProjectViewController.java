@@ -1,13 +1,8 @@
 package com.lwoods.masterplan;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SQLresultView extends Activity implements OnClickListener {
+public class DetailedProjectViewController extends Activity implements OnClickListener {
 
 	LinearLayout layCheck;
 	TextView tvInfo, tvDue, tvGroup;
 	EditText etUp;
 	Spinner spin;
-	String FILENAME = "InternalString", checkResult = "";
+	String checkResult = "";
 	TextView proj, goal;
 	Button up;
 	Thread memThr;
@@ -43,16 +38,16 @@ public class SQLresultView extends Activity implements OnClickListener {
 		etUp = (EditText) findViewById(R.id.etUpTwo);
 		up = (Button) findViewById(R.id.bUpdateTwo);
 		up.setOnClickListener(this);
-		etUp.setHint("Add A New CheckPoint?");
-		String pow = getIntent().getExtras().getString("spinnerIndex");
+		etUp.setHint(getString(R.string.addACheckPointHint));
+		String pow = getIntent().getExtras().getString(getString(R.string.projChoiceSpinnerIndexFromPreviousActivity));
 		checkResult = pow;
-		ProjDbUI info = new ProjDbUI(this);
+		SQLiteDbInterfacer info = new SQLiteDbInterfacer(this);
 		info.open();
 		String checkpoints = info.getCheckDate(checkResult);
 		String dueDate = info.getDue(checkResult);
 		info.close();
 		if (dueDate.isEmpty()) {
-			dueDate = "No Specified Due Date";
+			dueDate = getString(R.string.noSetDueDate);
 		}
 		goals(checkResult);
 		tvDue.setText(dueDate);
@@ -63,7 +58,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 
 	private void goals(String name) {
 		String goals = "";
-		ProjDbUI goalie = new ProjDbUI(this);
+		SQLiteDbInterfacer goalie = new SQLiteDbInterfacer(this);
 		goalie.open();
 		goals = goalie.getGoals(name);
 		goalie.close();
@@ -92,7 +87,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 	}
 
 	private void chDates(String name) {
-		ProjDbUI dater = new ProjDbUI(this);
+		SQLiteDbInterfacer dater = new SQLiteDbInterfacer(this);
 		String checks = "";
 		String dates = "";
 		dater.open();
@@ -114,7 +109,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 			if (checkArr[i].isEmpty()) {
 				continue;
 			}else if(dateArr[i].isEmpty()){
-				dateArr[i] = "Old data. Thanks for the support!";
+				dateArr[i] = getString(R.string.checkPointDateErrorText);
 			}
 			if (checkArr[i].contains("\n")) {
 				continue;
@@ -139,7 +134,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 	}
 
 	private void group(String name) {
-		ProjDbUI grouper = new ProjDbUI(this);
+		SQLiteDbInterfacer grouper = new SQLiteDbInterfacer(this);
 		String group = "";
 		grouper.open();
 		group = grouper.getGroup(name);
@@ -180,7 +175,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 			 * AsyncTask.Status.FINISHED){ new DbProcThr().execute(""); }
 			 */
 
-			ProjDbUI infoBackG = new ProjDbUI(SQLresultView.this);
+			SQLiteDbInterfacer infoBackG = new SQLiteDbInterfacer(DetailedProjectViewController.this);
 
 			String neededIn = "";
 			String checks = "";
@@ -202,9 +197,9 @@ public class SQLresultView extends Activity implements OnClickListener {
 
 					for (int i = 0; i < dateArr.length && i < checkArr.length; i++) {
 						LinearLayout zontalLay = new LinearLayout(
-								SQLresultView.this);
-						TextView dateView = new TextView(SQLresultView.this), checkView = new TextView(
-								SQLresultView.this);
+								DetailedProjectViewController.this);
+						TextView dateView = new TextView(DetailedProjectViewController.this), checkView = new TextView(
+								DetailedProjectViewController.this);
 						LinearLayout.LayoutParams layPar = new LinearLayout.LayoutParams(
 								LayoutParams.MATCH_PARENT,
 								LayoutParams.MATCH_PARENT);
@@ -299,7 +294,7 @@ public class SQLresultView extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.bUpdateTwo:
-			ProjDbUI entry = new ProjDbUI(this);
+			SQLiteDbInterfacer entry = new SQLiteDbInterfacer(this);
 			Date now = new Date();
 			entry.open();
 			entry.createEntry(checkResult, etUp.getText().toString(), "", "",

@@ -16,14 +16,10 @@
         <activity
             android:name="com.lwoods.masterplan.Start"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="com.lwoods.masterplan.SQLresultView"
+            android:name=".DetailedProjectViewController"
             android:label="@string/app_name" >  
             <intent-filter>
                 <action android:name="com.lwoods.masterplan.SQLresultView" />
@@ -31,8 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Projects"
+            android:name=".ProjectsViewController"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

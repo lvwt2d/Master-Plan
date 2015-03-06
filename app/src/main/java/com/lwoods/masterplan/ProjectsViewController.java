@@ -1,10 +1,11 @@
 package com.lwoods.masterplan;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 import android.app.Activity;
@@ -12,7 +13,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -20,31 +20,30 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import android.widget.TabHost.TabSpec;
 
-public class Projects extends Activity implements OnClickListener,
+public class ProjectsViewController extends Activity implements OnClickListener,
 		OnItemSelectedListener {
 
-	public static final String SPINNER_IND = "com.lwoods.masterplan._ID";
 	TabHost th;
-	Spinner spin, spinUp, groupChange;
-	String[] projNames = { "LWoods Demo Projects" };
-	Button sqlUpdate, sqlView, flip, vflip, gflip, dueflip, submit, addGoal,
+    ListView projListView;
+	Spinner spinUp, groupChange;
+	String[] projNames = { getString(R.string.sampleProjectName) };
+	Button sqlUpdate, flip, vflip, gflip, dueflip, submit, addGoal,
 			dependflip;
 	EditText sqlChange, newName, newCheck, dueDate, goals, depends, dateChange,
 			etAddGoal;
 	ViewFlipper flips, checkFlip, goalFlip, dDateflip, dependFlip;
 
 	FileOutputStream fos;
-	String FILENAME = "InternalString";
+	String FILENAME = getString(R.string.internalStringFileName);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +56,17 @@ public class Projects extends Activity implements OnClickListener,
 	}
 
 	private void displayGoals() {
-		// TODO Auto-generated method stub
-		ProjDbUI goalie = new ProjDbUI(Projects.this);
+
+		SQLiteDbInterfacer goalie = new SQLiteDbInterfacer(ProjectsViewController.this);
 
 		// String goalString = goalie.getGoals(name);
 	}
 
 	private void initialize() {
 		setUpTabs();
-		setUpSpin();
+		setUpAllSpinners();
 
 		sqlUpdate = (Button) findViewById(R.id.bUpdateDb);
-		sqlView = (Button) findViewById(R.id.bSQLopenView);
 		flip = (Button) findViewById(R.id.bGroup);
 		submit = (Button) findViewById(R.id.bSubmitNew);
 		vflip = (Button) findViewById(R.id.bUpCheck);
@@ -90,7 +88,6 @@ public class Projects extends Activity implements OnClickListener,
 		dDateflip = (ViewFlipper) findViewById(R.id.vfDateChange);
 		dependFlip = (ViewFlipper) findViewById(R.id.vfDepend);
 		sqlUpdate.setOnClickListener(this);
-		sqlView.setOnClickListener(this);
 		flip.setOnClickListener(this);
 		vflip.setOnClickListener(this);
 		submit.setOnClickListener(this);
@@ -98,7 +95,7 @@ public class Projects extends Activity implements OnClickListener,
 		dependflip.setOnClickListener(this);
 		gflip.setOnClickListener(this);
 		dueflip.setOnClickListener(this);
-		etAddGoal.setHint("Add A Goal?('goal1-goal2-etc.-')");
+		etAddGoal.setHint(getString(R.string.goalAddingHint));
 		try {
 			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			fos.close();
@@ -111,45 +108,53 @@ public class Projects extends Activity implements OnClickListener,
 		}
 	}
 
-	private void setUpSpin() {
-		// TODO Auto-generated method stub
-		ProjDbUI namer = new ProjDbUI(Projects.this);
-		String[] spinString = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
-				"10" };
-		try {
+	private void setUpAllSpinners() {
+		SQLiteDbInterfacer namer = new SQLiteDbInterfacer(ProjectsViewController.this);
+        String[] groupMemberCounts = {getString(R.string.one), getString(R.string.two), getString(R.string.three),
+                getString(R.string.four), getString(R.string.five), getString(R.string.six),
+                getString(R.string.seven), getString(R.string.eight), getString(R.string.nine),
+                getString(R.string.ten)};
+        try {
 			namer.open();
-			if (namer.getProjects().length != 0) {
-				projNames = namer.getProjects();
+			if (namer.getProjectNames().length != 0) {
+				projNames = namer.getProjectNames();
 			} else {
 				Dialog d = new Dialog(this);
-				d.setTitle("You Dont Have Any Projects?!");
+				d.setTitle(getString(R.string.noProjects));
 				TextView tv = new TextView(this);
-				tv.setText("See The New Project Section So We Can Get Started");
+				tv.setText(getString(R.string.directToAddProjectsTab));
 				d.setContentView(tv);
 				d.show();
 			}
 			namer.close();
 		} catch (Exception e) {
-			// StackTraceElement[] errors =
-			// Thread.currentThread().getStackTrace();
 			Dialog d = new Dialog(this);
-			d.setTitle("Problem!");
+			d.setTitle(getString(R.string.problemGettingProjectNames));
 			TextView tv = new TextView(this);
 			tv.setText(e.toString());
 			d.setContentView(tv);
 			d.show();
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(Projects.this,
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ProjectsViewController.this,
 				android.R.layout.simple_spinner_item, projNames);
 		ArrayAdapter<String> daTadapter = new ArrayAdapter<String>(
-				Projects.this, android.R.layout.simple_spinner_item, spinString);
-		spin = (Spinner) findViewById(R.id.spProjectChoise);
+				ProjectsViewController.this, android.R.layout.simple_spinner_item, groupMemberCounts);
+
+
+		projListView = (ListView) findViewById(R.id.projectList);
+        ArrayList projNameList = new ArrayList<String>(Arrays.asList(projNames));
+        Collections.sort(projNameList, String.CASE_INSENSITIVE_ORDER);
+
+        // create ArrayAdapter and use it to bind tags to the ListView //TODO
+        ArrayAdapter<String> nameListAdapter = new ArrayAdapter<String>(ProjectsViewController.this, R.layout.list_item, projNameList);
+        projListView.setAdapter(nameListAdapter);
+
 		spinUp = (Spinner) findViewById(R.id.spUpdateChoice);
 		groupChange = (Spinner) findViewById(R.id.spGroupChange);
-		spin.setAdapter(adapter);
+		projListView.setAdapter(adapter);
 		spinUp.setAdapter(adapter);
 		groupChange.setAdapter(daTadapter);
-		spin.setOnItemSelectedListener(this);
+		projListView.setOnItemSelectedListener(this);
 		spinUp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -161,14 +166,6 @@ public class Projects extends Activity implements OnClickListener,
 				int count = ll.getChildCount();
 				View etAddg = ll.getChildAt(0);
 				View butAddg = ll.getChildAt(1);
-				/*
-				 * for (int i = 0; i < count; i++) { View child =
-				 * ll.getChildAt(i); if (i <= 2) {
-				 * 
-				 * ll.removeView(child);
-				 * 
-				 * } }
-				 */
 				ll.removeAllViews();
 				ll.addView(etAddg);
 				ll.addView(butAddg);
@@ -192,17 +189,17 @@ public class Projects extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		th = (TabHost) findViewById(R.id.thProjects);
 		th.setup();
-		TabSpec specs = th.newTabSpec("tag1");
-		specs.setContent(R.id.tCurrent);
-		specs.setIndicator("Current Projects");
+		TabSpec specs = th.newTabSpec(getString(R.string.firstTabSpec));
+		specs.setContent(R.id.projectList);
+		specs.setIndicator(getString(R.string.tabOneTitle));
 		th.addTab(specs);
-		specs = th.newTabSpec("tag2");
+		specs = th.newTabSpec(getString(R.string.secondTabSpec));
 		specs.setContent(R.id.tab2);
-		specs.setIndicator("Update Projects");
+		specs.setIndicator(getString(R.string.tabTwoTitle));
 		th.addTab(specs);
-		specs = th.newTabSpec("tag3");
+		specs = th.newTabSpec(getString(R.string.thirdTabSpec));
 		specs.setContent(R.id.tab3);
-		specs.setIndicator("Add A Project");
+		specs.setIndicator(getString(R.string.tabThreeTitle));
 		th.addTab(specs);
 	}
 
@@ -222,7 +219,7 @@ public class Projects extends Activity implements OnClickListener,
 				String depends = groupChange.getItemAtPosition(gposition)
 						.toString();
 				String compoundG = "";
-				ProjDbUI entry = new ProjDbUI(Projects.this);
+				SQLiteDbInterfacer entry = new SQLiteDbInterfacer(ProjectsViewController.this);
 
 				LinearLayout ll = (LinearLayout) findViewById(R.id.layGoals);
 				int count = ll.getChildCount();
@@ -270,13 +267,13 @@ public class Projects extends Activity implements OnClickListener,
 				
 				entry.createEntry(name, change, dueChange, compoundG, depends,
 						riteNow.toString());
-				setUpSpin();
+				setUpAllSpinners();
 				entry.close();
 			} catch (Exception e) {
 				didItWork = false;
 				String error = e.toString();
 				Dialog d = new Dialog(this);
-				d.setTitle("Darn.. We Have An Error");
+				d.setTitle(getString(R.string.errorDialogMessage));
 				TextView tv = new TextView(this);
 				tv.setText(error);
 				d.setContentView(tv);
@@ -293,13 +290,13 @@ public class Projects extends Activity implements OnClickListener,
 			}
 
 			break;
-		case R.id.bSQLopenView:
-			Intent i = new Intent("com.lwoods.masterplan.SQLresultView");
-			int positioned = spin.getSelectedItemPosition();
-			String named = spin.getItemAtPosition(positioned).toString();
-			i.putExtra("spinnerIndex", named);
-			startActivity(i);
-			break;
+//		case R.id.bSQLopenView:
+//			Intent i = new Intent("com.lwoods.masterplan.SQLresultView");
+//			int positioned = projListView.getSelectedItemPosition();
+//			String named = projListView.getItemAtPosition(positioned).toString();
+//			i.putExtra("spinnerIndex", named);
+//			startActivity(i);
+//			break;
 		case R.id.bGroup:
 			flips.showNext();
 			break;
@@ -312,10 +309,10 @@ public class Projects extends Activity implements OnClickListener,
 				String goal = goals.getText().toString();
 				String pend = depends.getText().toString();
 				Date now = new Date();
-				ProjDbUI entry = new ProjDbUI(Projects.this);
+				SQLiteDbInterfacer entry = new SQLiteDbInterfacer(ProjectsViewController.this);
 				entry.open();
 				entry.createEntry(name, change, due, goal, pend, now.toString());
-				setUpSpin();
+				setUpAllSpinners();
 				entry.close();
 			} catch (Exception e) {
 				didItWorktwo = false;
@@ -348,7 +345,7 @@ public class Projects extends Activity implements OnClickListener,
 			int position = spinUp.getSelectedItemPosition();
 			Date riteNow = new Date();
 			String name = spinUp.getItemAtPosition(position).toString();
-			ProjDbUI groupEntry = new ProjDbUI(Projects.this);
+			SQLiteDbInterfacer groupEntry = new SQLiteDbInterfacer(ProjectsViewController.this);
 			groupEntry.open();
 			String addedG = etAddGoal.getText().toString();
 			if (!groupEntry.getGoals(name).isEmpty()) {
@@ -379,7 +376,7 @@ public class Projects extends Activity implements OnClickListener,
 		String goalStr = "";
 		String[] goalA = { "" };
 		LinearLayout goalLay = (LinearLayout) findViewById(R.id.layGoals);
-		ProjDbUI goalie = new ProjDbUI(this);
+		SQLiteDbInterfacer goalie = new SQLiteDbInterfacer(this);
 		goalie.open();
 		int position = spinUp.getSelectedItemPosition();
 		final String name = spinUp.getItemAtPosition(position).toString();
@@ -419,8 +416,8 @@ public class Projects extends Activity implements OnClickListener,
 		// TRIGGERED ON THE SELECTION OF MY FIRST DROP DOWN LIST
 		// USE DISPLAYCHILDAT(0) TO GO TO THE FIRST VIEW IN THE FLIPPER
 
-		int position = spin.getSelectedItemPosition();
-		String data = spin.getItemAtPosition(position).toString();
+		int position = projListView.getSelectedItemPosition();
+		String data = projListView.getItemAtPosition(position).toString();
 		try {
 			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			fos.write(data.getBytes());

@@ -39,35 +39,35 @@ ADDED from AndroidManifest.xml:16:9
 		ADDED from AndroidManifest.xml:18:13
 	android:name
 		ADDED from AndroidManifest.xml:17:13
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:19:13
-action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:20:17
-	android:name
-		ADDED from AndroidManifest.xml:20:25
-category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:22:17
-	android:name
-		ADDED from AndroidManifest.xml:22:27
-activity#com.lwoods.masterplan.SQLresultView
-ADDED from AndroidManifest.xml:25:9
+activity#com.lwoods.masterplan.DetailedProjectViewController
+ADDED from AndroidManifest.xml:21:9
 	android:label
-		ADDED from AndroidManifest.xml:27:13
+		ADDED from AndroidManifest.xml:23:13
 	android:name
-		ADDED from AndroidManifest.xml:26:13
+		ADDED from AndroidManifest.xml:22:13
 intent-filter#android.intent.category.DEFAULT+com.lwoods.masterplan.SQLresultView
-ADDED from AndroidManifest.xml:28:13
+ADDED from AndroidManifest.xml:24:13
 action#com.lwoods.masterplan.SQLresultView
-ADDED from AndroidManifest.xml:29:17
+ADDED from AndroidManifest.xml:25:17
 	android:name
-		ADDED from AndroidManifest.xml:29:25
+		ADDED from AndroidManifest.xml:25:25
 category#android.intent.category.DEFAULT
-ADDED from AndroidManifest.xml:30:17
+ADDED from AndroidManifest.xml:26:17
 	android:name
-		ADDED from AndroidManifest.xml:30:27
-activity#com.lwoods.masterplan.Projects
-ADDED from AndroidManifest.xml:33:9
+		ADDED from AndroidManifest.xml:26:27
+activity#com.lwoods.masterplan.ProjectsViewController
+ADDED from AndroidManifest.xml:29:9
 	android:label
-		ADDED from AndroidManifest.xml:35:13
+		ADDED from AndroidManifest.xml:31:13
 	android:name
-		ADDED from AndroidManifest.xml:34:13
+		ADDED from AndroidManifest.xml:30:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:32:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:33:17
+	android:name
+		ADDED from AndroidManifest.xml:33:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:35:17
+	android:name
+		ADDED from AndroidManifest.xml:35:27
