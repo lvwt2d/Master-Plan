@@ -82,8 +82,35 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050000;
-        public static final int app_name=0x7f050001;
-        public static final int hello_world=0x7f050002;
+        public static final int addACheckPointHint=0x7f050001;
+        public static final int app_name=0x7f050002;
+        public static final int checkPointDateErrorText=0x7f050003;
+        public static final int directToAddProjectsTab=0x7f050004;
+        public static final int eight=0x7f050005;
+        public static final int errorDialogMessage=0x7f050006;
+        public static final int firstTabSpec=0x7f050007;
+        public static final int five=0x7f050008;
+        public static final int four=0x7f050009;
+        public static final int goalAddingHint=0x7f05000a;
+        public static final int hello_world=0x7f05000b;
+        public static final int internalStringFileName=0x7f05000c;
+        public static final int nine=0x7f05000d;
+        public static final int noProjects=0x7f05000e;
+        public static final int noSetDueDate=0x7f05000f;
+        public static final int one=0x7f050010;
+        public static final int problemGettingProjectNames=0x7f050011;
+        public static final int projChoiceSpinnerIndexFromPreviousActivity=0x7f050012;
+        public static final int sampleProjectName=0x7f050013;
+        public static final int secondTabSpec=0x7f050014;
+        public static final int seven=0x7f050015;
+        public static final int six=0x7f050016;
+        public static final int tabOneTitle=0x7f050017;
+        public static final int tabThreeTitle=0x7f050018;
+        public static final int tabTwoTitle=0x7f050019;
+        public static final int ten=0x7f05001a;
+        public static final int thirdTabSpec=0x7f05001b;
+        public static final int three=0x7f05001c;
+        public static final int two=0x7f05001d;
     }
     public static final class style {
         /** 

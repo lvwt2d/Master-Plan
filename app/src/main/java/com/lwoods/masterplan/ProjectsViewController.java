@@ -32,18 +32,17 @@ import android.widget.TabHost.TabSpec;
 public class ProjectsViewController extends Activity implements OnClickListener,
 		OnItemSelectedListener {
 
-	TabHost th;
-    ListView projListView;
-	Spinner spinUp, groupChange;
-	String[] projNames = { getString(R.string.sampleProjectName) };
-	Button sqlUpdate, flip, vflip, gflip, dueflip, submit, addGoal,
-			dependflip;
-	EditText sqlChange, newName, newCheck, dueDate, goals, depends, dateChange,
-			etAddGoal;
-	ViewFlipper flips, checkFlip, goalFlip, dDateflip, dependFlip;
+    String[] projNames;
+    String FILENAME;
+    FileOutputStream fos;
 
-	FileOutputStream fos;
-	String FILENAME = getString(R.string.internalStringFileName);
+    TabHost th;
+    ViewFlipper flips, checkFlip, goalFlip, dDateflip, dependFlip;
+
+    ListView projListView;
+    Spinner spinUp, groupChange;
+    Button sqlUpdate, flip, vflip, gflip, dueflip, submit, addGoal, dependflip;
+    EditText sqlChange, newName, newCheck, dueDate, goals, depends, dateChange, etAddGoal;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class ProjectsViewController extends Activity implements OnClickListener,
 		setContentView(R.layout.projects);
 		initialize();
 		displayGoals();
-
 	}
 
 	private void displayGoals() {
@@ -63,9 +61,11 @@ public class ProjectsViewController extends Activity implements OnClickListener,
 	}
 
 	private void initialize() {
-		setUpTabs();
-		setUpAllSpinners();
+        projNames = new String[]{getString(R.string.sampleProjectName)};
+        SQLiteDbInterfacer namer = new SQLiteDbInterfacer(ProjectsViewController.this);
+        getAllProjectNamesFromDatabase(namer);
 
+        FILENAME = getString(R.string.internalStringFileName);
 		sqlUpdate = (Button) findViewById(R.id.bUpdateDb);
 		flip = (Button) findViewById(R.id.bGroup);
 		submit = (Button) findViewById(R.id.bSubmitNew);
@@ -106,55 +106,26 @@ public class ProjectsViewController extends Activity implements OnClickListener,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+        setUpTabs();
+        setUpAllSpinners();
+        setUpListViews();
 	}
 
 	private void setUpAllSpinners() {
-		SQLiteDbInterfacer namer = new SQLiteDbInterfacer(ProjectsViewController.this);
         String[] groupMemberCounts = {getString(R.string.one), getString(R.string.two), getString(R.string.three),
                 getString(R.string.four), getString(R.string.five), getString(R.string.six),
                 getString(R.string.seven), getString(R.string.eight), getString(R.string.nine),
                 getString(R.string.ten)};
-        try {
-			namer.open();
-			if (namer.getProjectNames().length != 0) {
-				projNames = namer.getProjectNames();
-			} else {
-				Dialog d = new Dialog(this);
-				d.setTitle(getString(R.string.noProjects));
-				TextView tv = new TextView(this);
-				tv.setText(getString(R.string.directToAddProjectsTab));
-				d.setContentView(tv);
-				d.show();
-			}
-			namer.close();
-		} catch (Exception e) {
-			Dialog d = new Dialog(this);
-			d.setTitle(getString(R.string.problemGettingProjectNames));
-			TextView tv = new TextView(this);
-			tv.setText(e.toString());
-			d.setContentView(tv);
-			d.show();
-		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ProjectsViewController.this,
+        ArrayAdapter<String> unsortedProjectNamesAdapter = new ArrayAdapter<String>(ProjectsViewController.this,
 				android.R.layout.simple_spinner_item, projNames);
-		ArrayAdapter<String> daTadapter = new ArrayAdapter<String>(
+		ArrayAdapter<String> groupMemberCountsAdapter = new ArrayAdapter<String>(
 				ProjectsViewController.this, android.R.layout.simple_spinner_item, groupMemberCounts);
 
-
-		projListView = (ListView) findViewById(R.id.projectList);
-        ArrayList projNameList = new ArrayList<String>(Arrays.asList(projNames));
-        Collections.sort(projNameList, String.CASE_INSENSITIVE_ORDER);
-
-        // create ArrayAdapter and use it to bind tags to the ListView //TODO
-        ArrayAdapter<String> nameListAdapter = new ArrayAdapter<String>(ProjectsViewController.this, R.layout.list_item, projNameList);
-        projListView.setAdapter(nameListAdapter);
-
-		spinUp = (Spinner) findViewById(R.id.spUpdateChoice);
-		groupChange = (Spinner) findViewById(R.id.spGroupChange);
-		projListView.setAdapter(adapter);
-		spinUp.setAdapter(adapter);
-		groupChange.setAdapter(daTadapter);
-		projListView.setOnItemSelectedListener(this);
+        spinUp = (Spinner) findViewById(R.id.spUpdateChoice);
+        groupChange = (Spinner) findViewById(R.id.spGroupChange);
+        spinUp.setAdapter(unsortedProjectNamesAdapter);
+        groupChange.setAdapter(groupMemberCountsAdapter);
 		spinUp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -185,7 +156,41 @@ public class ProjectsViewController extends Activity implements OnClickListener,
 		groupChange.setOnItemSelectedListener(this);
 	}
 
-	private void setUpTabs() {
+    private void setUpListViews() {
+        projListView = (ListView) findViewById(R.id.projectList);
+        ArrayList<String> projNameList = new ArrayList<String>(Arrays.asList(projNames));
+        Collections.sort(projNameList, String.CASE_INSENSITIVE_ORDER);
+
+        ArrayAdapter<String> nameListAdapter = new ArrayAdapter<String>(ProjectsViewController.this, R.layout.list_item, projNameList);
+        projListView.setAdapter(nameListAdapter);
+        projListView.setOnItemSelectedListener(this);
+    }
+
+    private void getAllProjectNamesFromDatabase(SQLiteDbInterfacer namer) {
+        try {
+			namer.open();
+			if (namer.getProjectNames().length != 0) {
+				projNames = namer.getProjectNames();
+			} else {
+				Dialog d = new Dialog(this);
+				d.setTitle(getString(R.string.noProjects));
+				TextView tv = new TextView(this);
+				tv.setText(getString(R.string.directToAddProjectsTab));
+				d.setContentView(tv);
+				d.show();
+			}
+			namer.close();
+		} catch (Exception e) {
+			Dialog d = new Dialog(this);
+			d.setTitle(getString(R.string.problemGettingProjectNames));
+			TextView tv = new TextView(this);
+			tv.setText(e.toString());
+			d.setContentView(tv);
+			d.show();
+		}
+    }
+
+    private void setUpTabs() {
 		// TODO Auto-generated method stub
 		th = (TabHost) findViewById(R.id.thProjects);
 		th.setup();

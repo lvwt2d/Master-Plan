@@ -7,8 +7,35 @@
     <!-- From: file:/Users/lamarwoods/Android/Master-Plan/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
+    <string name="addACheckPointHint">Add A New CheckPoint?</string>
     <string name="app_name">Master Plan</string>
+    <string name="checkPointDateErrorText">Old data. Thanks for the support!</string>
+    <string name="directToAddProjectsTab">To Get Started Visit The 3rd Tab</string>
+    <string name="eight">8</string>
+    <string name="errorDialogMessage">Darn.. We Have An Error</string>
+    <string name="firstTabSpec">tag1</string>
+    <string name="five">5</string>
+    <string name="four">4</string>
+    <string name="goalAddingHint">Add A Goal?(\'goal1-goal2-etc.-\')</string>
     <string name="hello_world">Hello world!</string>
+    <string name="internalStringFileName">InternalString</string>
+    <string name="nine">9</string>
+    <string name="noProjects">You Have No Projects!?!</string>
+    <string name="noSetDueDate">No Specified Due Date</string>
+    <string name="one">1</string>
+    <string name="problemGettingProjectNames">Problem!</string>
+    <string name="projChoiceSpinnerIndexFromPreviousActivity">spinnerIndex</string>
+    <string name="sampleProjectName">Add Projects At 3rd Tab</string>
+    <string name="secondTabSpec">tag2</string>
+    <string name="seven">7</string>
+    <string name="six">6</string>
+    <string name="tabOneTitle">Current Projects</string>
+    <string name="tabThreeTitle">Add A Project</string>
+    <string name="tabTwoTitle">Update Projects</string>
+    <string name="ten">10</string>
+    <string name="thirdTabSpec">tag3</string>
+    <string name="three">3</string>
+    <string name="two">2</string>
     <!-- From: file:/Users/lamarwoods/Android/Master-Plan/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
